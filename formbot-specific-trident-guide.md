@@ -1,156 +1,152 @@
 # Formbot Voron Trident R1 Pro  
-## Special Considerations Guide (All Sizes)
+## Integrated Special Considerations Guide (All Sizes)
 
 **Applies to:** Trident 250 / 300 / 350  
 **Kit:** Formbot Voron Trident R1 Pro  
 **Firmware Baseline:** Formbot-provided configs wherever possible  
 **Hotend:** Rapido (hotend-dependent notes clearly marked)
 
+This document integrates:
+- The General Trident Build Guide (Steve / Pooch)
+- Formbot kit-specific features and deviations
+- Differences from a stock Voron Trident
+
 ---
 
 ## How to Use This Guide
 
-This document is a **supplement**, not a replacement, for:
-
-1. **Official Voron Trident Assembly Manual** (primary source of truth)
-2. **General Trident Build Guide (Steve / Pooch)**  
-   – preparation, sequencing, and best practices
-3. **Formbot documentation** (kit-specific deviations)
-
-Use this guide **only where Formbot kits differ or need clarification**.
+1. Use the **official Voron Trident manual** for geometry and assembly order.
+2. Use the **Steve/Pooch General Trident Build Guide** for sequencing and best practices.
+3. Use **this document** where Formbot kits differ or add advanced systems.
 
 ---
 
 ## Scope & Size Applicability
 
-- All procedures apply equally to **250 / 300 / 350**
+- All guidance applies to **250 / 300 / 350**
 - Differences between sizes are limited to:
   - Extrusion length
   - Belt length
   - Wire length
-- Assembly order and concepts remain identical
 
-> ⚠️ Note:  
-> The Voron **Trident does NOT use a kirigami bed frame**.  
-> Kirigami beds are specific to **Voron V0** designs.
-
----
-
-## Kit Overview (Formbot R1 Pro)
-
-**Included:**
-- Frame extrusions & hardware
-- Linear rails
-- Belts and pulleys
-- Pre-crimped wiring harnesses
-- Controller + display (kit-dependent)
-- Panels
-
-**Not included:**
-- 3D printed parts (must be sourced separately)
-- Some consumables (diodes, wagos, optional connectors)
-
-Always inventory parts against:
-- Voron BOM
-- Formbot packing list
-- Formbot GitHub diagrams
+> ⚠️ Note  
+> The Voron Trident **does not use a kirigami bed frame**.  
+> Kirigami beds are specific to Voron V0 designs.
 
 ---
 
-## Firmware & Configuration (Formbot Baseline)
+## Integrated Formbot-Specific Features & Considerations
 
-🟦 **Formbot-specific**
+### TAP Bed Leveling (Included)
+- Replaces inductive / Klicky probes
+- Requires precise Z alignment and clean wiring
+- Use Formbot TAP firmware values first
 
-- Use the **Formbot-supplied `printer.cfg`** as your baseline
-- Treat Formbot configs as authoritative unless you know why you’re changing them
-- Verify:
-  - MCU type and pins
-  - Stepper pin assignments
-  - Endstop logic
-  - Heater and fan definitions
+### Filament Runout Sensor (Included)
+- Optional in stock Trident
+- Enable only after extrusion tuning
 
-### CAN Bus
-- If Formbot provides CAN bus configs:
-  - Use them as-is initially
-  - Verify UUIDs and bus wiring before power-up
-- Do not substitute generic Voron CAN configs blindly
+### LED Chamber Lighting (Included)
+- Verify voltage (5V vs 12V)
+- Plan routing to avoid gantry and panel pinch points
 
----
+### Nevermore Air Filter (Included)
+- Community mod, integrated by Formbot
+- Treat as a system: fan, wiring, airflow
 
-## Wiring & Harness Considerations
+### PT1000 Temperature Sensor (Included)
+- Higher accuracy than NTC
+- Requires correct `sensor_type` in firmware
 
-🟦 **Formbot-specific**
+### DLC-Coated CW2 Gears (Included)
+- Longer life than brass
+- Start with conservative tension
 
-- Harnesses are pre-crimped
-- **Always verify polarity** with a multimeter:
-  - Fans
-  - Thermistors
-  - Heater cartridge
-- Remove **all shipping zip ties and velcro**
-  before routing through cable chains
-- Add strain relief near:
-  - Toolhead
-  - Controller board
-  - Cable chain ends
+### Toolhead Breakout PCB (Included)
+- Reduces wiring back to mainboard
+- Connector seating and orientation are critical
 
-> Best practice: trust documentation, not connector color.
+### CAN Toolhead Boards (Included)
+- Requires CAN firmware flashing and UUID management
+- Bring CAN up before closing the toolhead
+
+### Brass Nozzle Brush (Included)
+- Not stock
+- Test wipe moves slowly to confirm clearance
+
+### Metal Panel Hinges (Included)
+- More rigid than printed hinges
+- Align panels before final tightening
+
+### Bakelite Isolation Columns (Included)
+- Provide thermal and electrical isolation
+- Do not substitute metal spacers
+
+### HDMI 5" Touch Screen (Included)
+- Rotation and permissions must be set correctly
+- Follow Formbot docs first
+
+### StealthBurner + CW2 (Included)
+- Afterburner was original Trident default
+- Dry-fit everything before final wiring
+
+### Manta M8P + CB1 Controller (Included)
+- CB1 ≠ Raspberry Pi
+- Follow Formbot OS and jumper documentation
+
+### Moons Stepper Motors (Included)
+- Z motors include integrated lead screws
+- Clean and verify straightness before installation
+
+### Silicone Bed Heater w/ Thermal Fuse (Included)
+- Mains voltage
+- Do not bypass thermal fuse
+- Aggressive strain relief required
+
+### Genuine Gates Belts (Included)
+- Stretch less than generic belts
+- Tension gradually and evenly
 
 ---
 
 ## Rapido Hotend (Hotend-Dependent Section)
 
-🟨 **Applies ONLY if using a Rapido**
+Applies **only** if using a Rapido hotend.
 
-- Verify heater cartridge wattage matches firmware limits
-- Confirm thermistor type (commonly **PT1000**) in `printer.cfg`
-- Ensure extra strain relief:
-  - Rapido heater leads are stiff
-- StealthBurner compatibility is supported, but:
-  - **Dry-fit before final wiring**
-  - Check clearance and cable exit path
-
-> If using a different hotend (Revo / Dragon / V6),  
-> skip this section and follow the general Trident guide.
+- Verify heater wattage vs firmware limits
+- Confirm thermistor type (commonly PT1000)
+- Add strain relief for rigid heater leads
+- Dry-fit Rapido + StealthBurner before final wiring
 
 ---
 
-## Common Formbot Kit Gotchas
+## Formbot R1 Pro vs Stock Voron Trident
 
-🟥 **Critical checks**
-
-- Some kits may omit small consumables:
-  - Diodes (probe-dependent)
-  - Wago connectors
-- Connector pinouts may differ from expectations
-- Always cross-check:
-  - Formbot diagrams
-  - Voron manual geometry
-
-When in doubt:
-> Voron manual defines geometry  
-> Formbot docs define *how the kit implements it*
+| Feature | Stock Voron Trident | Formbot R1 Pro |
+|------|-------------------|---------------|
+| Bed Probing | Inductive / Klicky / Omron | TAP load-cell |
+| Toolhead Wiring | Direct wired | CAN EBB boards |
+| Extruder | CW2 optional | CW2 w/ DLC gears |
+| Lighting | Not included | LED lighting |
+| Air Filtration | Optional mod | Nevermore included |
+| Thermistor | NTC common | PT1000 |
+| Controller | Builder choice | Manta M8P + CB1 |
+| Belts | Vendor varies | Genuine Gates |
+| Panel Hinges | Printed | Metal |
 
 ---
 
-## Cross-Reference Map
+## Final Guidance
 
-| Topic | Reference |
-|-----|----------|
-| Mechanical assembly | Voron Trident Manual |
-| Build sequencing & best practices | Steve / Pooch General Trident Guide |
-| Wiring pinouts & configs | Formbot GitHub |
-| Firmware baseline | Formbot `printer.cfg` |
-| Hotend specifics | Hotend manufacturer docs |
+The Formbot R1 Pro is best treated as:
 
----
+> **A Trident with multiple advanced systems integrated from day one**
 
-## Final Advice
+Use:
+- Voron manual → geometry
+- Steve/Pooch guide → sequencing
+- This document → Formbot-specific deviations
 
-- Use **Formbot firmware first**
-- Use **Steve / Pooch guide** to avoid mistakes
-- Use **Voron manual** to validate geometry
-- Verify everything electrical before power-up
-
-This combination yields the smoothest Formbot Trident build experience.
+Early planning and staged testing will prevent rework.
 
 ---
